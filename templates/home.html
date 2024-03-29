@@ -3,8 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <title>Anthony - Home</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom CSS */
+        body {
+            padding: 20px;
+            background-color: #f8f9fa; /* Light gray background */
+        }
+
+        .product-container {
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #fff; /* White background */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow effect */
+        }
+
+        .product-name {
+            font-weight: bold;
+            color: #007bff; /* Blue color */
+        }
+
+        .product-price {
+            color: #28a745; /* Green color */
+        }
+
+        .no-product {
+            font-weight: bold;
+            color: #777;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-<p>Test 1 2 3</p>
+<div class="container">
+    <h2 class="row justify-content-center">Anthony's Products</h2>
+    {{range .}}
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="product-container text-center">
+                <div class="product-name">{{ .Name }}</div>
+                <div class="product-price">{{ .Price }}</div>
+            </div>
+        </div>
+    </div>
+    {{else}}
+    <div class="no-product">No products available</div>
+    {{end}}
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
