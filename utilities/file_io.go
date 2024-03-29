@@ -24,10 +24,6 @@ func NewProduct(name string, price float64) Product {
 	}
 }
 
-func productBuilder() []Product {
-	products := []Product{NewProduct("Jim", 12.0), NewProduct("Bob", -10)}
-	return products
-}
 func Add(product *Product) {
 	// Open file in append mode or create it if it doesn't exist
 	file, err := os.OpenFile("products.csv", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
