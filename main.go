@@ -1,4 +1,4 @@
-package concurrent_web_app
+package main
 
 import "concurrent-web-app/server"
 
