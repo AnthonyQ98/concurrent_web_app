@@ -5,36 +5,42 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"strconv"
 )
 
-type Product struct {
-	Name  string
-	Price float32
-}
-
-func NewProduct(name string, price float32) Product {
-	if name == "" {
-		name = "Foobar"
-	}
-	if price < 0 {
-		price = 10.0
-	}
-	return Product{
-		Name:  name,
-		Price: price,
-	}
-}
-
-func productBuilder() []Product {
-	products := []Product{NewProduct("Jim", 12.0), NewProduct("Bob", -10)}
-	return products
-}
-
 func Home(w http.ResponseWriter, r *http.Request) {
-	products := productBuilder()
+	products, err := utilities.Load()
+	if err != nil {
+		log.Println("Error loading products:", err)
+	}
 	res, err := template.ParseFiles("templates/home.html")
 	utilities.Check(err)
 	err = res.Execute(w, products)
 	utilities.Check(err)
 	log.Println("Successful request!")
+}
+
+func Form(w http.ResponseWriter, r *http.Request) {
+	res, err := template.ParseFiles("templates/form.html")
+	utilities.Check(err)
+	err = res.Execute(w, nil)
+	utilities.Check(err)
+}
+
+func AddProduct(w http.ResponseWriter, r *http.Request) {
+	price, err := strconv.ParseFloat(r.FormValue("productPrice"), 64)
+	utilities.Check(err)
+	product := utilities.NewProduct(r.FormValue("productName"), price)
+
+	utilities.Add(&product)
+	log.Println("New product successfully added to file")
+
+	http.Redirect(w, r, "/home", http.StatusFound)
+}
+
+func Remove(w http.ResponseWriter, r *http.Request) {
+	utilities.Remove()
+	log.Println("Removed all products!")
+
+	http.Redirect(w, r, "/home", http.StatusFound)
 }

@@ -10,6 +10,9 @@ import (
 func StartServer() {
 	log.Println("Starting webserver on port 8080...")
 	http.HandleFunc("/home", handlers.Home)
+	http.HandleFunc("/new", handlers.Form)
+	http.HandleFunc("/remove", handlers.Remove)
+	http.HandleFunc("/addProduct", handlers.AddProduct)
 	// Start a goroutine to serve incoming HTTP requests concurrently
 	go func() {
 		err := http.ListenAndServe("localhost:8080", nil)
