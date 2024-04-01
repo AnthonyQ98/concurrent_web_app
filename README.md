@@ -1,6 +1,6 @@
 # Concurrent Go Web Application Docker Image
 
-This Docker image hosts a concurrent Go web application. It's available on the public Docker Hub registry.
+This Docker image hosts a concurrent Go web application. It's available on the public Docker Hub registry here: https://hub.docker.com/repository/docker/devanthony/concurrent_golang_web_app/general
 
 ## How to use it?
 
